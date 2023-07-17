@@ -44,6 +44,19 @@ export class App extends Component {
     this.setState({ contacts: filteredContacts });
   };
 
+  componentDidMount() {
+    if (JSON.parse(localStorage.getItem('phonebook') === null)) {
+      localStorage.setItem('phonebook', JSON.stringify([]));
+    }
+    this.setState({
+      contacts: JSON.parse(localStorage.getItem('phonebook')),
+    });
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem('phonebook', JSON.stringify(this.state.contacts));
+  }
+
   render() {
     const { contacts } = this.state;
 
